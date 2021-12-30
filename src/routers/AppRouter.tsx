@@ -2,17 +2,24 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth } from "firebase/auth";
-import { LoginScreen } from "../screens/LoginScreen";
-import { LoadingScreen } from "../screens/LoadingScreen";
-import { PublicRoute } from "./PublicRoute";
+
 import { RootState } from "../store";
 import { IAuthState } from "../reducers/authReducer/types";
+import { login } from "../reducers/authReducer/actionCreators";
+
 import {
   checkTokenAuth,
   getDecodeToken,
   getTokenFromLS,
 } from "../helpers/authJwt";
-import { login } from "../reducers/authReducer/actionCreators";
+
+import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
+
+import { LoginScreen } from "../screens/LoginScreen";
+import { LoadingScreen } from "../screens/LoadingScreen";
+
+import { ROUTE_DASHBOARD, ROUTE_LOGIN } from "./types";
 
 export const AppRouter: React.FC = () => {
   const dispatch = useDispatch();
@@ -50,8 +57,13 @@ export const AppRouter: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <PublicRoute
-          path="/"
+          path={ROUTE_LOGIN}
           component={LoginScreen}
+          isAuthenticated={isLoggedIn}
+        />
+        <PrivateRoute
+          path={ROUTE_DASHBOARD}
+          render={() => <h2>Dashboard</h2>}
           isAuthenticated={isLoggedIn}
         />
       </Switch>
