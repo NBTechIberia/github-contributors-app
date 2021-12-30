@@ -22,8 +22,13 @@ export const dashboardLogout = (): IDashboardAction => ({
 export const fetchDashboard = () => {
   return (dispatch: Dispatch) => {
     DashboardServices.getDashboard().then((response) => {
-      console.log(response.data);
-      dispatch(loadDashboard(response.data, response.data.length));
+      const count = response.data.length;
+      const contributors = response.data.map((contributor: IContributor) => ({
+        login: contributor.login,
+        avatar_url: contributor.avatar_url,
+        contributions: contributor.contributions,
+      }));
+      dispatch(loadDashboard(contributors, count));
     });
   };
 };
