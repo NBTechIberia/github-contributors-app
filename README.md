@@ -53,6 +53,8 @@ dashboard: manages dashboard info
 
 ## Next Steps
 
+[x] Hosting Firebase [Link here](https://github-contributors-app.web.app)
+
 [ ] Manage Firebase Error Code
 
 [ ] Save Settings App in LS while user is logged in
