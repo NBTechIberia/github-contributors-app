@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
 
 import { DashboardScreen } from "../../screens/DashboardScreen";
+import { SettingsScreen } from "../../screens/SettingsScreen";
 
-import { ROUTE_DASHBOARD } from "../../routers/types";
+import { ROUTE_DASHBOARD, ROUTE_SETTINGS } from "../../routers/types";
 import { IAuthState } from "../../reducers/authReducer/types";
 import { RootState } from "../../store";
 import { logoutUser } from "../../reducers/authReducer/actionCreators";
@@ -33,6 +34,7 @@ export const Content: React.FC = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 10 }}>
         <Switch>
           <Route exact path={ROUTE_DASHBOARD} component={DashboardScreen} />
+          <Route exact path={ROUTE_SETTINGS} component={SettingsScreen} />
         </Switch>
       </Box>
     </Box>
