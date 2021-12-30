@@ -4,15 +4,22 @@ import { fetchDashboard } from "../../reducers/dashboardReducer/actionCreators";
 import { RootState } from "../../store";
 import { IDashboardState } from "../../reducers/dashboardReducer/types";
 import { Avatar, Divider, Grid, Paper, Typography } from "@mui/material";
+import { IUiState } from "../../reducers/uiReducer/types";
+import { LoadingScreen } from "../LoadingScreen";
 
 export const DashboardScreen: React.FC = () => {
   const dispatch = useDispatch();
   const { contributors, count } = useSelector<RootState, IDashboardState>(
     (state) => state.dashboard
   );
+  const { loading } = useSelector<RootState, IUiState>((state) => state.ui);
   useEffect(() => {
     dispatch(fetchDashboard());
   }, [dispatch]);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
   return (
     <>
       <Typography variant="h2">Dashboard</Typography>

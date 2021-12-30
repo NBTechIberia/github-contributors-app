@@ -1,6 +1,10 @@
 import { Dispatch } from "redux";
 import DashboardServices from "../../services/DashboardServices";
 import {
+  activateLoading,
+  deactivateLoading,
+} from "../uiReducer/actionCreators";
+import {
   DASHBOARD_FETCH_CONTRIBUTORS,
   DASHBOARD_LOGOUT_CLEANING,
 } from "./actionTypes";
@@ -21,14 +25,19 @@ export const dashboardLogout = (): IDashboardAction => ({
 
 export const fetchDashboard = () => {
   return (dispatch: Dispatch) => {
-    DashboardServices.getDashboard().then((response) => {
-      const count = response.data.length;
-      const contributors = response.data.map((contributor: IContributor) => ({
-        login: contributor.login,
-        avatar_url: contributor.avatar_url,
-        contributions: contributor.contributions,
-      }));
-      dispatch(loadDashboard(contributors, count));
-    });
+    dispatch(activateLoading());
+    DashboardServices.getDashboard()
+      .then((response) => {
+        const count = response.data.length;
+        const contributors = response.data.map((contributor: IContributor) => ({
+          login: contributor.login,
+          avatar_url: contributor.avatar_url,
+          contributions: contributor.contributions,
+        }));
+        dispatch(loadDashboard(contributors, count));
+      })
+      .finally(() => {
+        dispatch(deactivateLoading());
+      });
   };
 };
