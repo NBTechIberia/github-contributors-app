@@ -7,7 +7,6 @@ import {
 } from "firebase/auth";
 import { googleAuthProvider } from "../../firebase/config";
 import { FirebaseError } from "firebase/app";
-import jwtDecode from "jwt-decode";
 import { Dispatch } from "redux";
 import {
   activateLoading,
@@ -15,8 +14,12 @@ import {
   setError,
 } from "../uiReducer/actionCreators";
 import * as actionTypes from "./actionTypes";
-import { JWT_KEY_LOCAL_STORAGE } from "./constants";
 import { IAuthAction, IJwtToken } from "./types";
+import {
+  getDecodeToken,
+  removeTokenFromLS,
+  saveTokenInLS,
+} from "../../helpers/authJwt";
 
 export const login = (
   uid: string,
@@ -36,8 +39,8 @@ export const logout = (): IAuthAction => ({
 
 const getUserAndDoDispatch = async (user: User, dispatch: Dispatch) => {
   const { token } = await user.getIdTokenResult();
-  localStorage.setItem(JWT_KEY_LOCAL_STORAGE, token);
-  dispatch(login(user.uid, user.displayName || "", jwtDecode(token)));
+  saveTokenInLS(token);
+  dispatch(login(user.uid, user.displayName || "", getDecodeToken(token)));
 };
 
 export const loginWithGoogle = () => {
@@ -78,7 +81,7 @@ export const logoutUser = () => {
   return (dispatch: Dispatch) => {
     const auth = getAuth();
     signOut(auth).then(() => {
-      localStorage.removeItem(JWT_KEY_LOCAL_STORAGE);
+      removeTokenFromLS();
       dispatch(logout());
     });
   };
