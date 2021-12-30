@@ -20,7 +20,7 @@ import { LoginScreen } from "../screens/LoginScreen";
 import { LoadingScreen } from "../screens/LoadingScreen";
 
 import { ROUTE_DASHBOARD, ROUTE_LOGIN } from "./types";
-import { DashboardScreen } from "../screens/DashboardScreen";
+import { Content } from "../components/Content";
 
 export const AppRouter: React.FC = () => {
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export const AppRouter: React.FC = () => {
         />
         <PrivateRoute
           path={ROUTE_DASHBOARD}
-          component={DashboardScreen}
+          component={Content}
           isAuthenticated={isLoggedIn}
         />
       </Switch>
