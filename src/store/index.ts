@@ -1,6 +1,7 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import { authReducer } from "../reducers/authReducer";
 import thunk from "redux-thunk";
+import { uiReducer } from "../reducers/uiReducer";
 
 declare global {
   interface Window {
@@ -10,6 +11,7 @@ declare global {
 
 const reducers = combineReducers({
   auth: authReducer,
+  ui: uiReducer,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
