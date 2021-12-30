@@ -50,3 +50,9 @@ dashboard: manages dashboard info
 - services: contains fetch managements to use in app
 - store: redux management
 ```
+
+## Next Steps
+
+[ ] Manage Firebase Error Code
+
+[ ] Save Settings App in LS while user is logged in
