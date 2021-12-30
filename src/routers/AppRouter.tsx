@@ -3,6 +3,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth } from "firebase/auth";
 import { LoginScreen } from "../screens/LoginScreen";
+import { LoadingScreen } from "../screens/LoadingScreen";
 import { PublicRoute } from "./PublicRoute";
 import { RootState } from "../store";
 import { IAuthState } from "../reducers/authReducer/types";
@@ -42,7 +43,7 @@ export const AppRouter: React.FC = () => {
   }, [uid]);
 
   if (checking) {
-    return <h1>Loading</h1>;
+    return <LoadingScreen />;
   }
 
   return (
