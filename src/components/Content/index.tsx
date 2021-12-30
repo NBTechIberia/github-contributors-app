@@ -10,6 +10,7 @@ import { RootState } from "../../store";
 import { logoutUser } from "../../reducers/authReducer/actionCreators";
 
 import { AppBar } from "../AppBar";
+import { Drawer } from "../Drawer";
 
 export const Content: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export const Content: React.FC = () => {
         name={decodeToken?.name || ""}
         avatar={decodeToken?.picture || ""}
       />
+      <Drawer />
       <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 10 }}>
         <Switch>
           <Route exact path={ROUTE_DASHBOARD} component={DashboardScreen} />
