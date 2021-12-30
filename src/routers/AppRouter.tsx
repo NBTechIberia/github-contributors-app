@@ -18,7 +18,6 @@ import { PrivateRoute } from "./PrivateRoute";
 
 import { LoginScreen } from "../screens/LoginScreen";
 import { LoadingScreen } from "../screens/LoadingScreen";
-
 import { ROUTE_DASHBOARD, ROUTE_LOGIN } from "./types";
 
 export const AppRouter: React.FC = () => {

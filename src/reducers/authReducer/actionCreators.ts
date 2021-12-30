@@ -20,6 +20,7 @@ import {
   removeTokenFromLS,
   saveTokenInLS,
 } from "../../helpers/authJwt";
+import { dashboardLogout } from "../dashboardReducer/actionCreators";
 
 export const login = (
   uid: string,
@@ -82,6 +83,7 @@ export const logoutUser = () => {
     const auth = getAuth();
     signOut(auth).then(() => {
       removeTokenFromLS();
+      dispatch(dashboardLogout());
       dispatch(logout());
     });
   };
